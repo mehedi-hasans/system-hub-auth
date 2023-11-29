@@ -101,8 +101,14 @@
                    <img src="{% static 'assets/img/profiles/avatar-01.jpg' %}" alt="User Image" class="avatar-img rounded-circle">
                 </div>
                 <div class="user-text">
-                   <h6>Ryan Taylor</h6>
+                   <h6>{{user.first_name}}&nbsp;{{user.last_name}}</h6>
+                   {% if user.user_type == '1' %}
                    <p class="text-muted mb-0">Administrator</p>
+                   {% elif user.user_type == '2' %}
+                   <p class="text-muted mb-0">Teacher</p>
+                   {% else %}
+                   <p class="text-muted mb-0">Student</p>
+                   {% endif %}
                 </div>
              </div>
              <a class="dropdown-item" href="profile.html">My Profile</a>
