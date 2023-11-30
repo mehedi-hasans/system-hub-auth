@@ -14,7 +14,7 @@
    <div class="col-sm-12">
       <div class="card">
          <div class="card-body">
-            <form method="post", action="" enctype="multipart/form-data">
+            <form method="post", action=" {% url 'profileUpdate' %}" enctype="multipart/form-data">
                {% csrf_token %}
                <div class="row">
                   <div class="col-12">
@@ -23,7 +23,7 @@
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Username</label>
-                        <input name="username" type="text" class="form-control" value="{{user.username}}">
+                        <input name="username" type="text" class="form-control" value="{{user.username}}" readonly>
                      </div>
                   </div>
                   <div class="col-12 col-sm-6">
@@ -57,28 +57,10 @@
                      </div>
                    </div>
                    
-                  <div class="col-12">
+                   <div class="col-12">
                      <button type="submit" class="btn btn-success">Update Profile</button>
-                     <button type="submit" class="btn btn-danger"><a class='text-white' href="">Change Password</a></button>
-                     {% if messages %}
-                     {% for message in messages %}
-                     {% if message.tags == 'error' %}
-                    <div class="alert alert-danger" role="alert">
-                       {{ message }}
-                    </div>
-                     {% endif %}
-                     {% endfor %}
-                    {% endif %}
-                 
-                    {% if messages %}
-                    {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                    <div class="alert alert-success" role="alert">
-                       {{ message }}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
+                     <button type="submit" class="btn btn-danger"><a href="" class='text-white'>Change Password</a></button> <br> <br>
+                     {% include "includes/message.html" %}
                   </div>
                </div>
             </form>
