@@ -32,6 +32,11 @@ def index(request):
     return render(request, 'admin/admin.html')
 
 
+
 def logOut(request):
     logout(request)
     return redirect('loginPage')
+
+
+def profile(request):
+    return render(request, 'profile.html')
