@@ -15,4 +15,8 @@ urlpatterns = [
     path('myAdmin/Student/studentList', views.studentList,name="studentList"), 
     path('myAdmin/Student/editStudent/<str:id>', views.editStudent,name="editStudent"),
     path('myAdmin/Student/updateStudent', views.updateStudent,name="updateStudent"),
+    path('myAdmin/Student/deleteStudent/<str:id>', views.deleteStudent,name="deleteStudent"),
+    #Teacher
+    path('myAdmin/Teacher', views.addTeacher,name="addTeacher"), 
+
 ]

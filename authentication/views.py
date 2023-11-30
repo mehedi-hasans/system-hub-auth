@@ -237,3 +237,11 @@ def updateStudent(request):
     
     return render(request,"admin/editStudent.html")
 
+
+def deleteStudent(request,id):
+    user=Student.objects.filter(id=id)
+    user.delete()
+    return redirect("studentList")
+
+def addTeacher(request):
+    return  None
