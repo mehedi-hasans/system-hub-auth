@@ -62,8 +62,6 @@ def profileUpdate(request):
         firstname = request.POST.get("first_name")
         lastname = request.POST.get("last_name")
         password = request.POST.get("password")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
         try:
             cuser = CustomUser.objects.get(id=request.user.id)
             cuser.first_name = firstname
