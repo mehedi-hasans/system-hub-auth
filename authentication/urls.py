@@ -22,5 +22,10 @@ urlpatterns = [
     path('myAdmin/Teacher/editTeacher/<str:id>', views.editTeacher, name="editTeacher"),
     path('myAdmin/Teacher/updateTeacher', views.updateTeacher,name="updateTeacher"), 
     path('myAdmin/Teacher/deleteTeacher/<str:id>', views.deleteTeacher,name="deleteTeacher"),
-
+    #Department
+    path('myAdmin/addDepartment', views.addDepartment,name="addDepartment"),
+    path('myAdmin/departmentList', views.departmentList,name="departmentList"),
+    path('myAdmin/editDepartment/<str:id>', views.editDepartment,name="editDepartment"), 
+    path('myAdmin/updateDepartment', views.updateDepartment,name="updateDepartment"), 
+    path('myAdmin/deleteDepartment/<str:id>', views.deleteDepartment,name="deleteDepartment"), 
 ]

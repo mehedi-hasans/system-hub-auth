@@ -383,3 +383,85 @@ def deleteTeacher(request,id):
     user.delete()
     return redirect("teacherList")
 
+#Department Section
+def addDepartment(request):
+    
+    error_messages = {
+        'success': 'Department Add Successfully',
+        'department_exist_error': 'Department already exist',
+    }
+    if request.method == "POST":
+        department_name = request.POST.get("department_name")
+        
+        print(department_name)
+        
+        if Course.objects.filter(name=department_name):
+            messages.error(request, error_messages['department_exist_error'])
+        else:
+            
+            course=Course(
+                
+                name=department_name,
+                
+            )
+            
+            course.save()
+            messages.success(request, error_messages['success'])
+            
+            return redirect("departmentList")
+       
+    return render(request,"admin/addDepartment.html")
+
+def departmentList(request):
+    
+    department = Course.objects.all()
+    context = {
+        "department": department,
+    }
+    
+    return render(request,"admin/departmentList.html",context)
+
+
+def editDepartment(request,id):
+    course = Course.objects.get(id=id)
+    context = {
+        "course": course,
+    }
+    return render(request,"admin/editDepartment.html",context)
+
+
+def updateDepartment(request):
+    error_messages = {
+        'success': 'Department Updated Successfully',
+        'error': 'Department Update Failed',
+    }
+
+    if request.method == "POST":
+        department_id = request.POST.get("department_id")
+        department_name = request.POST.get("department_name")
+        
+        course=Course.objects.get(id=department_id)
+        course.name= department_name
+        course.save()
+        
+        messages.success(request, error_messages['success'])
+        return redirect("departmentList")
+    else:
+        messages.error(request, error_messages['error'])
+        return redirect("editDepartment")
+    
+    return render(request,"admin/editDepartment.html")
+
+
+
+
+# def deleteDepartment(request, id):
+#     user = Course.objects.filter(id=id)
+#     user.delete()
+#     return redirect('departmentList')
+
+
+def deleteDepartment(request,id):
+    user=Course.objects.filter(id=id)
+    user.delete()
+    return redirect("departmentList")
