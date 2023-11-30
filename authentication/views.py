@@ -453,15 +453,112 @@ def updateDepartment(request):
     return render(request,"admin/editDepartment.html")
 
 
-
-
-# def deleteDepartment(request, id):
-#     user = Course.objects.filter(id=id)
-#     user.delete()
-#     return redirect('departmentList')
-
-
 def deleteDepartment(request,id):
     user=Course.objects.filter(id=id)
     user.delete()
     return redirect("departmentList")
+
+
+#Subject Section
+def addSubject(request):
+    
+    course=Course.objects.all()
+    teacher=Teacher.objects.all()
+    
+    
+    error_messages = {
+        'success': 'Subject Add Successfully',
+        'subjecterror': 'Subject already exist',
+    }
+    if request.method == "POST":
+        course_id = request.POST.get("course_id")
+        teacher_id = request.POST.get("teacher_id")
+        subject_name = request.POST.get("subject_name")
+       
+        courseid=Course.objects.get(id=course_id)
+        teacherid=Teacher.objects.get(id=teacher_id)
+    
+        subject=Subject(
+        
+        name=subject_name,
+        course=courseid,
+        teacher=teacherid,
+        )
+        
+        
+    
+        subject.save()
+ 
+        messages.success(request, error_messages['success'])
+
+        return redirect("subjectList")
+    
+    context={
+        "course":course,
+        "teacher":teacher,
+        }    
+    
+
+    return render(request,"admin/addSubject.html", context)
+
+
+
+def subjectList(request):
+    subject = Subject.objects.all()
+    context = {
+        "subject": subject,
+    }
+    return render(request,"admin/subjectList.html",context)
+
+
+
+def editSubject(request,id):
+    subject=Subject.objects.filter(id=id)
+    course=Course.objects.all()
+    teacher=Teacher.objects.all()
+    
+    context={
+        "subject":subject,
+        "course":course,
+        "teacher":teacher,
+    }
+    return render(request,"admin/editSubject.html",context)
+
+
+
+def updateSubject(request):
+    
+    error_messages = {
+        'success': 'Subject Update Successfully',
+        'subjecterror': 'Subject Update Failed',
+    }
+    if request.method == "POST":
+        subject_id = request.POST.get("subject_id")
+        course_id = request.POST.get("course_id")
+        teacher_id = request.POST.get("teacher_id")
+        subject_name = request.POST.get("subject_name")
+       
+        courseid=Course.objects.get(id=course_id)
+        teacherid=Teacher.objects.get(id=teacher_id)
+    
+        subject=Subject(
+        id=subject_id,
+        name=subject_name,
+        course=courseid,
+        teacher=teacherid,
+        )
+        
+        subject.save()
+ 
+        messages.success(request, error_messages['success'])
+
+        return redirect("subjectList")
+    
+    return render(request,"admin/editSubject.html")
+
+
+def deleteSubject(request,id):
+    user=Subject.objects.filter(id=id)
+    user.delete()
+    return redirect("subjectList")
+

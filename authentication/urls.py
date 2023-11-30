@@ -28,4 +28,10 @@ urlpatterns = [
     path('myAdmin/editDepartment/<str:id>', views.editDepartment,name="editDepartment"), 
     path('myAdmin/updateDepartment', views.updateDepartment,name="updateDepartment"), 
     path('myAdmin/deleteDepartment/<str:id>', views.deleteDepartment,name="deleteDepartment"), 
+    #Subject
+    path('myAdmin/Subject/addSubject', views.addSubject,name="addSubject"), 
+    path('myAdmin/Subject/subjectList', views.subjectList,name="subjectList"), 
+    path('myAdmin/Subject/editSubject/<str:id>', views.editSubject,name="editSubject"), 
+    path('myAdmin/Subject/updateSubject', views.updateSubject,name="updateSubject"),
+    path('myAdmin/Subject/deleteSubject/<str:id>', views.deleteSubject,name="deleteSubject"),
 ]
