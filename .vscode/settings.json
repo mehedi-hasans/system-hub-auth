@@ -3,6 +3,8 @@
         "courseid",
         "cratedat",
         "cuser",
+        "erroremail",
+        "errorusername",
         "fzle",
         "sessionyearid",
         "updateat",

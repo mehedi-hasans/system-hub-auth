@@ -17,6 +17,10 @@ urlpatterns = [
     path('myAdmin/Student/updateStudent', views.updateStudent,name="updateStudent"),
     path('myAdmin/Student/deleteStudent/<str:id>', views.deleteStudent,name="deleteStudent"),
     #Teacher
-    path('myAdmin/Teacher', views.addTeacher,name="addTeacher"), 
+    path('myAdmin/addTeacher', views.addTeacher,name="addTeacher"), 
+    path('myAdmin/Teacher/teacherList', views.teacherList,name="teacherList"), 
+    path('myAdmin/Teacher/editTeacher/<str:id>', views.editTeacher, name="editTeacher"),
+    path('myAdmin/Teacher/updateTeacher', views.updateTeacher,name="updateTeacher"), 
+    path('myAdmin/Teacher/deleteTeacher/<str:id>', views.deleteTeacher,name="deleteTeacher"),
 
 ]

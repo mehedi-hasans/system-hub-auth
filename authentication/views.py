@@ -243,5 +243,143 @@ def deleteStudent(request,id):
     user.delete()
     return redirect("studentList")
 
+
+
+#Teacher Section
 def addTeacher(request):
-    return  None
+    error_messages = {
+        'success': 'Teacher Add Successfully',
+        'erroremail': 'email already exist',
+        'errorusername': 'username already exist',
+    }
+    if request.method == "POST":
+        profile_pic = request.FILES.get('profile_pic')
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username")  # Changed from 'user_name' to 'username'
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        gender = request.POST.get("gender")
+        course_id = request.POST.get("courseid")
+        mobile = request.POST.get("mobile")
+        experience = request.POST.get("experience")
+
+        # Check if email or username already exists
+        if CustomUser.objects.filter(email=email).exists():
+            messages.error(request, error_messages['erroremail'])
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, error_messages['errorusername'])
+        else:
+            # Create the customUser instance
+            user = CustomUser.objects.create_user(username=username, email=email, password=password)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.profile_pic = profile_pic
+            user.user_type = 2  # Assuming '2' represents students
+
+            # Save the user instance
+            user.save()
+
+            # Retrieve the selected course and session year
+            myCourse = Course.objects.get(id=course_id)
+
+            # Create the student instance
+            teacher = Teacher(
+                admin=user,
+                address=address,
+                courseid=myCourse,
+                gender=gender,
+                mobile=mobile,
+                experience=experience,
+            )
+
+            # Save the student instance
+            teacher.save()
+
+            messages.success(request, error_messages['success'])
+            return redirect("teacherList")
+
+    # Fetch the course and session year data to display in the form
+    course = Course.objects.all()
+    context = {
+        "course": course,
+    }
+
+    return render(request, "admin/addTeacher.html", context)
+
+
+def teacherList(request):
+    
+    allTeacher=Teacher.objects.all()
+    print(allTeacher)
+    
+    return render(request,"admin/teacherList.html",{"teacher":allTeacher})
+
+def editTeacher(request,id):
+    teacher=Teacher.objects.filter(id=id)
+    course = Course.objects.all()
+    context = {
+        "course": course,
+        "teacher":teacher,
+    }
+    
+    return render(request,"admin/editTeacher.html",context)
+
+def updateTeacher(request):
+    
+    error_messages = {
+        'success': 'Teacher Updated Successfully',
+        'error': 'Teacher update Failed',
+    }
+    if request.method == "POST":
+        teacher_id = request.POST.get("teacher_id")
+        profile_pic = request.FILES.get('profile_pic')
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username") 
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        gender = request.POST.get("gender")
+        course_id = request.POST.get("courseid")
+        mobile = request.POST.get("mobile")
+        experience = request.POST.get("experience")
+        
+        user=CustomUser.objects.get(id=teacher_id)
+        
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email=email
+        user.username=username
+        
+        
+        if password is not None and password!="":
+            user.set_password(password)
+        if password is not None and profile_pic!="":
+            user.profile_pic=profile_pic
+        user.save()
+        
+        teacher=Teacher.objects.get(admin=teacher_id)
+        
+        teacher.address=address
+        teacher.gender=gender
+        teacher.mobile=mobile
+        teacher.experience=experience
+        
+        course=Course.objects.get(id=course_id)
+        teacher.course_id=course
+        
+        teacher.save()
+        
+        
+        messages.success(request, error_messages['success'])
+        return redirect("teacherList")
+    return render(request,"myAdmin/editTeacher.html")
+
+
+def deleteTeacher(request,id):
+    user=Teacher.objects.filter(id=id)
+    user.delete()
+    return redirect("teacherList")
+
