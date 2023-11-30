@@ -9,4 +9,5 @@ urlpatterns = [
     #Profile Update
     path('profile', views.profile, name='profile'),
     path('profile/update', views.profileUpdate, name='profileUpdate'),
+    path('profile/profileUpdate/ChangePassword', views.changePassword,name="changePassword"),
 ]
