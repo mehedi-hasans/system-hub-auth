@@ -6,8 +6,9 @@
     <div class="col-sm-12">
        <div class="card">
           <div class="card-body">
-             <form  action="{% url 'addStudent' %} "  method="post" enctype="multipart/form-data">
+            <form  action=" {% url 'updateStudent' %} "  method="post" enctype="multipart/form-data">
                {% csrf_token %}
+               {% for s in  student%}
                 <div class="row">
                    <div class="col-12">
                       <h5 class="form-title"><span>Add Student</span></h5>
@@ -16,39 +17,40 @@
                    <div class="col-12 col-sm-6">
                       <div class="form-group">
                          <label>First Name</label>
-                         <input name="first_name" type="text" class="form-control" required>
-                      </div>
+                         <input value="{{s.admin.first_name}}" name="first_name" type="text" class="form-control">
+                         <input value="{{s.admin.id}}" name="student_id" type="text" class="form-control" hidden>
+                        </div>
                    </div>
                    <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Last Name</label>
-                        <input name="last_name" type="text" class="form-control" required>
+                        <input value="{{s.admin.last_name}}"name="last_name" type="text" class="form-control">
                      </div>
                   </div>
 
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Email</label>
-                        <input name="email" type="text" class="form-control" required>
+                        <input value="{{s.admin.email}}" name="email" type="text" class="form-control">
                      </div>
                   </div>
                   
                    <div class="col-12 col-sm-6">
                       <div class="form-group">
                          <label>Username</label>
-                         <input name="username"  type="text" class="form-control"  required>
+                         <input value="{{s.admin.username}}"name="username"  type="text" class="form-control">
                       </div>
                    </div>
                    <div class="col-11 col-sm-6">
                      <div class="form-group">
                         <label>Password</label>
-                        <input name="password"  type="password" class="form-control" required>
+                        <input name="password"  type="password" class="form-control">
                      </div>
                   </div>
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Address</label>
-                        <textarea name="address"  type="text" class="form-control"></textarea>
+                        <textarea name="address"  type="text" class="form-control">{% for s in  student%} {{s.address}} {% endfor %}</textarea>
                      </div>
                   </div>
                    <div class="col-12 col-sm-6">
@@ -95,15 +97,13 @@
                    </div>
                    
                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Add Student</button>
-                      <a class="btn btn-primary" href="{% url 'studentList' %}">Student View</a>
+                      <button type="submit" class="btn btn-primary">Update Student</button>
                    </div>
-                   <br>
-                   <br>
                    <div class="col-12">
                      {% include 'includes/message.html' %}
                   </div>
                 </div>
+                {% endfor %}
              </form>
           </div>
        </div>

@@ -127,7 +127,7 @@ def addStudent(request):
         session_year_id = request.POST.get("sessionyearid")
 
         # Check if email or username already exists
-        if CustomUser.objects.filter(email=email).exists() or customUser.objects.filter(username=username).exists():
+        if CustomUser.objects.filter(email=email).exists() or CustomUser.objects.filter(username=username).exists():
             messages.error(request, error_messages['error'])
         else:
             # Create the customUser instance
@@ -162,13 +162,78 @@ def addStudent(request):
     # Fetch the course and session year data to display in the form
     course = Course.objects.all()
     session_year = SessionYear.objects.all()
-    st=Student.objects.all()
     context = {
         "course": course,
-        "session": session_year,
-        "st":st,   
+        "session": session_year, 
     }
 
     return render(request, "admin/addStudent.html", context)
 
+def studentList(request):
+    
+    allStudent=Student.objects.all()
+    print(allStudent)
+    
+    return render(request,"admin/studentList.html",{"student":allStudent})
+
+
+def editStudent(request,id):
+    student=Student.objects.filter(id=id)
+    course = Course.objects.all()
+    session_year = SessionYear.objects.all()
+    context = {
+        "course": course,
+        "session": session_year,
+        "student":student,
+    }
+    
+    return render(request,"admin/editStudent.html",context)
+
+def updateStudent(request):
+    error_messages = {
+        'success': 'Student Updated Successfully',
+        'error': 'Student Updated Failed',
+    }
+    if request.method == "POST":
+        profile_pic = request.FILES.get('profile_pic')
+        student_id = request.POST.get("student_id")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username")  # Changed from 'user_name' to 'username'
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        gender = request.POST.get("gender")
+        course_id = request.POST.get("courseid")
+        session_year_id = request.POST.get("sessionyearid")
+        print('This is ' + student_id + first_name)
+        user=CustomUser.objects.get(id=student_id)
+        
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email=email
+        user.username=username
+        
+        if password is not None and password!="":
+            user.set_password(password)
+        if password is not None and profile_pic!="":
+            user.profile_pic=profile_pic
+        user.save()
+        
+        student=Student.objects.get(admin=student_id)
+        student.address=address
+        student.gender=gender
+        
+        course=Course.objects.get(id=course_id)
+        student.courseid=course
+        
+        session=SessionYear.objects.get(id=session_year_id)
+        student.sessionyearid=session
+        
+        student.save()
+        
+        messages.success(request, error_messages['success'])
+        return redirect("studentList")
+    
+    return render(request,"admin/editStudent.html")
 
