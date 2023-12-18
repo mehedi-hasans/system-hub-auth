@@ -24,7 +24,7 @@ def loginPage(request):
             if user_type == '1':
                 return redirect('index')
             elif user_type == '2':
-                return HttpResponse('This is Teacher Panel')
+                return redirect('teacherHome')
             else:
                 return redirect('student')
         elif CustomUser.objects.filter(username=request.POST.get('username')).exists():
@@ -68,7 +68,7 @@ def signupPage(request):
             return redirect("loginPage")
     return render(request, "signup.html")
 
-@login_required(login_url='/index')
+@login_required
 def index(request):
     studentCount = Student.objects.all().count()
     teacherCount = Teacher.objects.all().count()
@@ -138,7 +138,7 @@ def profileUpdate(request):
             messages.error(request, error_messages['error'])
     return render(request, 'profile.html')
 
-
+@login_required(login_url='/index')
 def changePassword(request):
     error_messages = {
         'success': 'Changed Successfully',
@@ -161,7 +161,7 @@ def changePassword(request):
         else:
             messages.error(request, error_messages['old_password'])
     return render(request, "changepassword.html")
-
+@login_required(login_url='/index')
 def addStudent(request):
     error_messages = {
         'success': 'Student Add Successfully',
@@ -221,7 +221,7 @@ def addStudent(request):
     }
 
     return render(request, "admin/addStudent.html", context)
-
+@login_required(login_url='/index')
 def studentList(request):
     
     allStudent=Student.objects.all()
@@ -229,7 +229,7 @@ def studentList(request):
     
     return render(request,"admin/studentList.html",{"student":allStudent})
 
-
+@login_required(login_url='/index')
 def editStudent(request,id):
     student=Student.objects.filter(id=id)
     course = Course.objects.all()
@@ -242,6 +242,7 @@ def editStudent(request,id):
     
     return render(request,"admin/editStudent.html",context)
 
+@login_required(login_url='/index')
 def updateStudent(request):
     error_messages = {
         'success': 'Student Updated Successfully',
@@ -290,7 +291,7 @@ def updateStudent(request):
     
     return render(request,"admin/editStudent.html")
 
-
+@login_required(login_url='/index')
 def deleteStudent(request,id):
     user=Student.objects.filter(id=id)
     user.delete()
@@ -299,6 +300,7 @@ def deleteStudent(request,id):
 
 
 #Teacher Section
+@login_required(login_url='/index')
 def addTeacher(request):
     error_messages = {
         'success': 'Teacher Add Successfully',
@@ -361,7 +363,7 @@ def addTeacher(request):
 
     return render(request, "admin/addTeacher.html", context)
 
-
+@login_required(login_url='/index')
 def teacherList(request):
     
     allTeacher=Teacher.objects.all()
@@ -369,6 +371,7 @@ def teacherList(request):
     
     return render(request,"admin/teacherList.html",{"teacher":allTeacher})
 
+@login_required(login_url='/index')
 def editTeacher(request,id):
     teacher=Teacher.objects.filter(id=id)
     course = Course.objects.all()
@@ -379,6 +382,7 @@ def editTeacher(request,id):
     
     return render(request,"admin/editTeacher.html",context)
 
+@login_required(login_url='/index')
 def updateTeacher(request):
     
     error_messages = {
@@ -430,13 +434,14 @@ def updateTeacher(request):
         return redirect("teacherList")
     return render(request,"myAdmin/editTeacher.html")
 
-
+@login_required(login_url='/index')
 def deleteTeacher(request,id):
     user=Teacher.objects.filter(id=id)
     user.delete()
     return redirect("teacherList")
 
 #Department Section
+@login_required(login_url='/index')
 def addDepartment(request):
     
     error_messages = {
@@ -474,7 +479,7 @@ def departmentList(request):
     
     return render(request,"admin/departmentList.html",context)
 
-
+@login_required(login_url='/index')
 def editDepartment(request,id):
     course = Course.objects.get(id=id)
     context = {
@@ -482,7 +487,7 @@ def editDepartment(request,id):
     }
     return render(request,"admin/editDepartment.html",context)
 
-
+@login_required(login_url='/index')
 def updateDepartment(request):
     error_messages = {
         'success': 'Department Updated Successfully',
@@ -505,13 +510,13 @@ def updateDepartment(request):
     
     return render(request,"admin/editDepartment.html")
 
-
+@login_required(login_url='/index')
 def deleteDepartment(request,id):
     user=Course.objects.filter(id=id)
     user.delete()
     return redirect("departmentList")
 
-
+@login_required(login_url='/index')
 #Subject Section
 def addSubject(request):
     
@@ -555,7 +560,7 @@ def addSubject(request):
     return render(request,"admin/addSubject.html", context)
 
 
-
+@login_required(login_url='/index')
 def subjectList(request):
     subject = Subject.objects.all()
     context = {
@@ -564,7 +569,7 @@ def subjectList(request):
     return render(request,"admin/subjectList.html",context)
 
 
-
+@login_required(login_url='/index')
 def editSubject(request,id):
     subject=Subject.objects.filter(id=id)
     course=Course.objects.all()
@@ -578,7 +583,7 @@ def editSubject(request,id):
     return render(request,"admin/editSubject.html",context)
 
 
-
+@login_required(login_url='/index')
 def updateSubject(request):
     
     error_messages = {
@@ -616,6 +621,9 @@ def deleteSubject(request,id):
     return redirect("subjectList")
 
 
-@login_required(login_url='/index')
-def student(request):
+
+
+#-----------Student Panel----------------
+def studentHome(request):
     return render(request, 'student/student.html')
+

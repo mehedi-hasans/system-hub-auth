@@ -1,4 +1,6 @@
 from django.urls import path
+
+from authentication import teacherViews
 from . import views
 
 urlpatterns = [
@@ -36,5 +38,9 @@ urlpatterns = [
     path('myAdmin/Subject/deleteSubject/<str:id>', views.deleteSubject,name="deleteSubject"),
 
     #Student Panel
-    path('student', views.student, name='student'),
+    path('teacher/home', teacherViews.teacherHome, name='teacherHome'),
+
+
+    #Student Panel
+    path('student', views.studentHome, name='student'),
 ]

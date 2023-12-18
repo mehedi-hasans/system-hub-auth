@@ -2,6 +2,7 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
        <div id="sidebar-menu" class="sidebar-menu">
+         {% if user.user_type == '1' %}
           <ul>
              <li class="menu-title">
                 <span>Main Menu</span>
@@ -10,15 +11,6 @@
              <li class="{% active_link 'index' %}">
                <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
             </li>
-
-             {% comment %} <li class="submenu active">
-                <a href="#"><i class="fas fa-user-graduate"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-                <ul>
-                   <li><a href="index.html" class="active">Admin Dashboard</a></li>
-                   <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
-                   <li><a href="student-dashboard.html">Student Dashboard</a></li>
-                </ul>
-             </li> {% endcomment %}
 
              <li class="submenu {% active_link 'addStudent || studentList' %}">
                 <a href=""><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
@@ -161,6 +153,38 @@
                <a href="{% url 'logOut'%}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>
           </ul>
+         {% elif user.user_type == '2' %}
+         <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+            
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
+           </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-calendar-alt"></i> <span> Take Attendance</span></a>
+           </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-calendar"></i> <span> View/Update Attendance</span></a>
+           </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-poll-h"></i> <span> Add Result</span></a>
+           </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-envelope-open"></i> <span> Apply For Leave</span></a>
+           </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-comment"></i> <span> Send Feedback</span></a>
+           </li>
+           <li>
+            <a href="{% url 'logOut'%}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+         </li>
+         </ul>
+
+          {% else %}
+            <h1>student</h1>
+          {% endif %}
        </div>
     </div>
  </div>
