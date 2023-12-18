@@ -4,33 +4,43 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
+
+
+
 #Profile Update
 from .models import *
 # Create your views here.
 
 def loginPage(request):
+    error_messages = {
+        'password_error': 'Password invalid please try again!',
+        'user_error': 'Username invalid please try again!',
+    }
     if request.method == 'POST':
-        user = EmailBackEnd.authenticate(request, username=request.POST.get('email'), password=request.POST.get('password'))
-        if user!=None:
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+        if user is not None:
             login(request, user)
             user_type = user.user_type
             if user_type == '1':
                 return redirect('index')
             elif user_type == '2':
                 return HttpResponse('This is Teacher Panel')
-            elif user_type == '3':
-                return HttpResponse('This is Student Panel')
             else:
-                messages.error(request, 'Email and Password are Invalid')
-                return redirect('loginPage')
+                return redirect('student')
+        elif CustomUser.objects.filter(username=request.POST.get('username')).exists():
+            messages.error(request, error_messages['password_error'])
+            return redirect('loginPage')
         else:
-            messages.error(request, 'Email and Password are Invalid')
+            messages.error(request, error_messages['user_error'])
             return redirect('loginPage')
     return render(request, 'login.html')
+
 
 def signupPage(request):
     error_messages = {
         'password_error': 'Password and Confirm Password not match',
+        'user_error': 'Username already exists. Please choose a different username.',
+        'email_error': 'Email already exists. Please choose a different Email.',
     }
     if request.method == "POST":
         uname = request.POST.get("name")
@@ -38,21 +48,45 @@ def signupPage(request):
         pass1 = request.POST.get("password")
         pass2 = request.POST.get("confirmpassword")
 
-        if pass1!= pass2:
-             messages.error(request, error_messages['password_error'])
+        if CustomUser.objects.filter(username=uname).exists():
+            messages.error(request, error_messages['user_error'])
+            return redirect('signupPage')
+        
+        elif CustomUser.objects.filter(email=email).exists():
+            messages.error(request, error_messages['email_error'])
+            return redirect('signupPage')
+        
+        elif pass1!= pass2:
+            messages.error(request, error_messages['password_error'])
+            return redirect('signupPage')
+        
         else:
             # Use your customUser model to create a user
-            myuser = CustomUser.objects.create_user(username=uname, email=email, password=pass1)
+            myuser = CustomUser.objects.create_user(username=uname, email=email, password=pass1, user_type = 3)
             myuser.save()
+            messages.success(request, 'Signup successful.')
             return redirect("loginPage")
-
-    messages.success(request, 'Signup successful.')
     return render(request, "signup.html")
 
-@login_required(login_url='/')
+@login_required(login_url='/index')
 def index(request):
-    return render(request, 'admin/admin.html')
+    studentCount = Student.objects.all().count()
+    teacherCount = Teacher.objects.all().count()
+    departmentCount = Course.objects.all().count()
+    subjectCount = Subject.objects.all().count()
 
+    studentGenderMale = Student.objects.filter(gender = 'Male').count()
+    studentGenderFemale = Student.objects.filter(gender = 'Female').count()
+
+    context ={
+        'studentCount' : studentCount,
+        'teacherCount' : teacherCount,
+        'departmentCount' : departmentCount,
+        'subjectCount' : subjectCount,
+        'studentGenderMale' : studentGenderMale,
+        'studentGenderFemale' : studentGenderFemale,
+    }
+    return render(request, 'admin/admin.html', context)
 
 
 def logOut(request):
@@ -61,7 +95,7 @@ def logOut(request):
 
 #Profile Update Section
 @login_required(login_url='/')
-def profile(request):
+def profile(request): 
     user = CustomUser.objects.get(id=request.user.id)
     context = {
         'user': user
@@ -85,7 +119,7 @@ def profileUpdate(request):
             cuser = CustomUser.objects.get(id=request.user.id)
             cuser.first_name = firstname
             cuser.last_name = lastname
-            cuser.profile_pic = profile_pic
+            # cuser.profile_pic = profile_pic 
             # Verify the current password provided matches the user's current password
             if not cuser.check_password(password):
                 messages.error(request, error_messages['password_error'])
@@ -581,3 +615,7 @@ def deleteSubject(request,id):
     user.delete()
     return redirect("subjectList")
 
+
+@login_required(login_url='/index')
+def student(request):
+    return render(request, 'student/student.html')

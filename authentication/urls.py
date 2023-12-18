@@ -34,4 +34,7 @@ urlpatterns = [
     path('myAdmin/Subject/editSubject/<str:id>', views.editSubject,name="editSubject"), 
     path('myAdmin/Subject/updateSubject', views.updateSubject,name="updateSubject"),
     path('myAdmin/Subject/deleteSubject/<str:id>', views.deleteSubject,name="deleteSubject"),
+
+    #Student Panel
+    path('student', views.student, name='student'),
 ]

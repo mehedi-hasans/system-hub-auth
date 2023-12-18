@@ -1,3 +1,4 @@
+{% load active_link_tags %}
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
        <div id="sidebar-menu" class="sidebar-menu">
@@ -6,7 +7,7 @@
                 <span>Main Menu</span>
              </li>
              
-             <li>
+             <li class="{% active_link 'index' %}">
                <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
             </li>
 
@@ -19,34 +20,41 @@
                 </ul>
              </li> {% endcomment %}
 
-             <li class="submenu">
-                <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
+             <li class="submenu {% active_link 'addStudent || studentList' %}">
+                <a href=""><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addStudent' %}">Student Add</a></li>
                    <li><a href="{% url 'studentList' %}">Student View</a></li>
                 </ul>
              </li>
-             <li class="submenu">
+             <li class="submenu {% active_link 'addTeacher || teacherList' %}">
                 <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addTeacher' %}">Teacher Add</a></li>
                    <li><a href="{% url "teacherList" %}">Teacher View</a></li>
                 </ul>
              </li>
-             <li class="submenu">
+             <li class="submenu {% active_link 'addDepartment || departmentList' %}">
                 <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url "addDepartment" %}">Department Add</a></li>
                    <li><a href="{% url "departmentList" %}">Department View</a></li>
                 </ul>
              </li>
-             <li class="submenu">
+             <li class="submenu {% active_link 'addSubject || subjectList' %}">
                 <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addSubject' %}">Subject Add</a></li>
                    <li><a href="{% url "subjectList" %}">Subject List</a></li>
                 </ul>
              </li>
+             <li class="submenu {% active_link 'addSubject || subjectList' %}">
+               <a href="#"><i class="fas fa-book-reader"></i> <span> Notification</span> <span class="menu-arrow"></span></a>
+               <ul>
+                  <li><a href="{% url 'addSubject' %}">Send Student Notification</a></li>
+                  <li><a href="{% url "subjectList" %}">Send Teacher Notification</a></li>
+               </ul>
+            </li>
              <li class="menu-title">
                 <span>Management</span>
              </li>
@@ -85,8 +93,8 @@
              <li class="submenu">
                 <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
                 <ul>
-                   <li><a href="login.html">Login</a></li>
-                   <li><a href="register.html">Register</a></li>
+                   <li><a href="{% url 'loginPage' %}">Login</a></li>
+                   <li><a href="{% url 'signupPage' %}">Register</a></li>
                    <li><a href="forgot-password.html">Forgot Password</a></li>
                    <li><a href="error-404.html">Error Page</a></li>
                 </ul>
