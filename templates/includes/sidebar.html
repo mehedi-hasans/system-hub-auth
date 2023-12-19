@@ -40,11 +40,11 @@
                    <li><a href="{% url "subjectList" %}">Subject List</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addSubject || subjectList' %}">
+             <li class="submenu {% active_link 'addSubject || TeacherSendNotification' %}">
                <a href="#"><i class="fas fa-book-reader"></i> <span> Notification</span> <span class="menu-arrow"></span></a>
                <ul>
                   <li><a href="{% url 'addSubject' %}">Send Student Notification</a></li>
-                  <li><a href="{% url "subjectList" %}">Send Teacher Notification</a></li>
+                  <li><a href="{% url "TeacherSendNotification" %}">Send Teacher Notification</a></li>
                </ul>
             </li>
              <li class="menu-title">

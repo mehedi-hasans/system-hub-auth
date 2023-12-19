@@ -242,54 +242,90 @@ def editStudent(request,id):
     
     return render(request,"admin/editStudent.html",context)
 
-@login_required(login_url='/index')
+
 def updateStudent(request):
     error_messages = {
         'success': 'Student Updated Successfully',
         'error': 'Student Updated Failed',
+        'password_error': 'Current password is incorrect',
     }
     if request.method == "POST":
         profile_pic = request.FILES.get('profile_pic')
         student_id = request.POST.get("student_id")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
-        email = request.POST.get("email")
-        username = request.POST.get("username")  # Changed from 'user_name' to 'username'
         password = request.POST.get("password")
         address = request.POST.get("address")
         gender = request.POST.get("gender")
         course_id = request.POST.get("courseid")
         session_year_id = request.POST.get("sessionyearid")
-        print('This is ' + student_id + first_name)
-        user=CustomUser.objects.get(id=student_id)
+
+        #this is checking Program
+        try:
+            cuser = CustomUser.objects.get(id=student_id)
+            cuser.first_name = first_name
+            cuser.last_name = last_name
+
+            if not cuser.check_password(password):
+                messages.error(request, error_messages['password_error'])
+                return redirect('studentList')
+            else:
+
+                if profile_pic is not None:
+                    cuser.profile_pic = profile_pic
+
+                cuser.save()
+
+                student=Student.objects.get(admin=student_id)
+                student.address=address
+                student.gender=gender
+
+                course=Course.objects.get(id=course_id)
+                student.courseid=course
         
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email=email
-        user.username=username
-        
-        if password is not None and password!="":
-            user.set_password(password)
-        if password is not None and profile_pic!="":
-            user.profile_pic=profile_pic
-        user.save()
-        
-        student=Student.objects.get(admin=student_id)
-        student.address=address
-        student.gender=gender
-        
-        course=Course.objects.get(id=course_id)
-        student.courseid=course
-        
-        session=SessionYear.objects.get(id=session_year_id)
-        student.sessionyearid=session
-        
-        student.save()
-        
-        messages.success(request, error_messages['success'])
-        return redirect("studentList")
+                session=SessionYear.objects.get(id=session_year_id)
+                student.sessionyearid=session
+
+                student.save()
+
+                messages.success(request, error_messages['success'])
+                return redirect("studentList")
+        except:
+            messages.error(request, error_messages['error'])
     
     return render(request,"admin/editStudent.html")
+
+#end
+
+
+        # user=CustomUser.objects.get(id=student_id)
+        
+        # user.first_name = first_name
+        # user.last_name = last_name
+        # user.email=email
+        # user.username=username
+        
+        # # if password is not None and password!="":
+        # #     user.set_password(password)
+        # # if password is not None and profile_pic!="":
+        # #     user.profile_pic=profile_pic
+        # user.save()
+        
+        # student=Student.objects.get(admin=student_id)
+        # student.address=address
+        # student.gender=gender
+        
+        # course=Course.objects.get(id=course_id)
+        # student.courseid=course
+        
+        # session=SessionYear.objects.get(id=session_year_id)
+        # student.sessionyearid=session
+        
+        # student.save()
+        
+        # messages.success(request, error_messages['success'])
+        # return redirect("studentList")
+
 
 @login_required(login_url='/index')
 def deleteStudent(request,id):
@@ -367,7 +403,7 @@ def addTeacher(request):
 def teacherList(request):
     
     allTeacher=Teacher.objects.all()
-    print(allTeacher)
+
     
     return render(request,"admin/teacherList.html",{"teacher":allTeacher})
 
@@ -425,10 +461,9 @@ def updateTeacher(request):
         teacher.experience=experience
         
         course=Course.objects.get(id=course_id)
-        teacher.course_id=course
+        teacher.courseid=course
         
         teacher.save()
-        
         
         messages.success(request, error_messages['success'])
         return redirect("teacherList")

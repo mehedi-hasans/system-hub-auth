@@ -31,14 +31,14 @@
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Email</label>
-                        <input value="{{s.admin.email}}" name="email" type="text" class="form-control">
+                        <input value="{{s.admin.email}}" name="email" type="text" class="form-control" readonly>
                      </div>
                   </div>
                   
                    <div class="col-12 col-sm-6">
                       <div class="form-group">
                          <label>Username</label>
-                         <input value="{{s.admin.username}}"name="username"  type="text" class="form-control">
+                         <input value="{{s.admin.username}}"name="username"  type="text" class="form-control" readonly>
                       </div>
                    </div>
                    <div class="col-11 col-sm-6">
@@ -50,28 +50,29 @@
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Address</label>
-                        <textarea name="address"  type="text" class="form-control">{% for s in  student%} {{s.address}} {% endfor %}</textarea>
+                        <textarea name="address"  type="text" class="form-control"> {{s.address}}</textarea>
                      </div>
                   </div>
                    <div class="col-12 col-sm-6">
                       <div class="form-group">
                          <label>Gender</label>
+                         <label>Gender</label>
                          <select class="form-control" name="gender">
-                            <option>Select Gender</option>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Others</option>
-                         </select>
+                           <option value="" {% if s.gender == '' %}selected{% endif %}>Select Gender</option>
+                           <option value="Female" {% if s.gender == 'Female' %}selected{% endif %}>Female</option>
+                           <option value="Male" {% if s.gender == 'Male' %}selected{% endif %}>Male</option>
+                           <option value="Others" {% if s.gender == 'Others' %}selected{% endif %}>Others</option>
+                       </select>
                       </div>
                    </div>
                   
                    <div class="col-12 col-sm-6">
                      <div class="form-group"  >
                         <label>Course</label>
-                        <select class="form-control" name="courseid">
+                        <select class="form-control" name="courseid" required>
                            <option>Select Course</option>
                            {% for c in course %}
-                           <option value="{{c.id}}"> {{c.name}} </option>
+                           <option value="{{c.id}}" {% if c.id == s.courseid.id %} selected {% endif %}> {{ c.name }} </option>
                            {% endfor %}
                         </select>
                      </div>
@@ -81,11 +82,12 @@
                      <div class="form-group">
                         <label>Session Year</label>
                         <select class="form-control" name="sessionyearid">
-                           <option>Select Session</option>
-                           {% for s in session %}
-                           <option value="{{s.id}}"> {{s.session_start}} {{"-"}} {{s.session_end}} </option>
-                           {% endfor %}
-                        </select>
+                           {% for y in session %}
+                           <option value="{{ y.id }}" {% if s.id == y.id %} selected {% endif %}>
+                               {{ y.session_start }} - {{ y.session_end }}
+                           </option>
+                       {% endfor %}
+                       </select>
                      </div>
                   </div>
                 
@@ -97,12 +99,12 @@
                    </div>
                    
                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Update Student</button>
-                   </div>
-                   <div class="col-12">
-                     {% include 'includes/message.html' %}
+                      {% include 'includes/message.html' %}
+                     </div>
+                  </div> <br>
+                  <div class="col-12">
+                     <button type="submit" class="btn btn-primary">Update Student</button>
                   </div>
-                </div>
                 {% endfor %}
              </form>
           </div>

@@ -22,7 +22,7 @@
                    </thead>
                    <tbody>
                      
-                     {% for s in  student%}
+                     {% for s in student reversed %}
                        
                      <tr>
                          <td>{{s.id}}</td>
@@ -53,6 +53,9 @@
                 </table>
              </div>
           </div>
+          <div class="col-12">
+            {% include 'includes/message.html' %}
+         </div><br>
           <div class="col-12">
            <a href="{% url 'addStudent' %}"><button type="submit" class="btn btn-primary">Add Student</button></a>
         </div>

@@ -20,27 +20,27 @@
                          <label>First Name</label>  
                          <input value="{{t.admin.id}}" name="teacher_id" type="text" class="form-control" hidden>
                        
-                         <input  value="{{t.admin.first_name}}"  name="first_name" type="text" class="form-control">
+                         <input  value="{{t.admin.first_name}}"  name="first_name" type="text" class="form-control" required>
                       </div>
                    </div>
                    <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Last Name</label>
-                        <input  value="{{t.admin.last_name}} " name="last_name" type="text" class="form-control">
+                        <input  value="{{t.admin.last_name}} " name="last_name" type="text" class="form-control" required>
                      </div>
                   </div>
 
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Email</label>
-                        <input value= {{t.admin.email}}  name="email" type="text" class="form-control">
+                        <input value= "{{t.admin.email}}"  name="email" type="text" class="form-control" readonly>
                      </div>
                   </div>
                   
                    <div class="col-12 col-sm-6">
                       <div class="form-group">
                          <label>Username</label>
-                         <input value= {{t.admin.username}} name="username"  type="text" class="form-control">
+                         <input value= "{{t.admin.username}}" name="username"  type="text" class="form-control" readonly>
                       </div>
                    </div>
                    <div class="col-11 col-sm-6">
@@ -59,21 +59,21 @@
                       <div class="form-group">
                          <label>Gender</label>
                          <select class="form-control" name="gender">
-                            <option>Select Gender</option>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Others</option>
-                         </select>
+                           <option value="" {% if t.gender == '' %}selected{% endif %}>Select Gender</option>
+                           <option value="Female" {% if t.gender == 'Female' %}selected{% endif %}>Female</option>
+                           <option value="Male" {% if t.gender == 'Male' %}selected{% endif %}>Male</option>
+                           <option value="Others" {% if t.gender == 'Others' %}selected{% endif %}>Others</option>
+                       </select>
                       </div>
                    </div>
                   
                    <div class="col-12 col-sm-6">
                      <div class="form-group"  >
                         <label>Course</label>
-                        <select class="form-control" name="courseid">
+                        <select class="form-control" name="courseid" required>
                            <option>Select Course</option>
                            {% for c in course %}
-                           <option value="{{c.id}}"> {{c.name}} </option>
+                           <option value="{{c.id}}" {% if c.id == t.courseid.id %} selected {% endif %}> {{ c.name }} </option>
                            {% endfor %}
                         </select>
                      </div>
@@ -82,13 +82,13 @@
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                        <label>Mobile</label>
-                       <input value={{t.mobile}} name="mobile"  type="text" class="form-control">
+                       <input value="{{t.mobile}}" name="mobile"  type="text" class="form-control">
                     </div>
                  </div>
                  <div class="col-12 col-sm-6">
                     <div class="form-group">
                        <label>Experience</label>
-                       <input value={{t.experience}} name="experience"  type="text" class="form-control">
+                       <input value="{{t.experience}}" name="experience"  type="text" class="form-control">
                     </div>
                  </div>
                 
@@ -112,5 +112,6 @@
        </div>
     </div>
  </div>
-    
+
+
 {% endblock  %}

@@ -37,8 +37,10 @@ urlpatterns = [
     path('myAdmin/Subject/updateSubject', views.updateSubject,name="updateSubject"),
     path('myAdmin/Subject/deleteSubject/<str:id>', views.deleteSubject,name="deleteSubject"),
 
-    #Student Panel
+    #Teacher Panel
     path('teacher/home', teacherViews.teacherHome, name='teacherHome'),
+    path('teacher/send_notification', teacherViews.TeacherSendNotification, name='TeacherSendNotification'),
+    path('teacher/save_teacher_notification', teacherViews.saveTeacherNotification, name='saveTeacherNotification'),
 
 
     #Student Panel
