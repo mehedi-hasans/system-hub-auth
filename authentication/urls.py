@@ -43,8 +43,9 @@ urlpatterns = [
     path('teacher/save_teacher_notification', teacherViews.saveTeacherNotification, name='saveTeacherNotification'),
     path('teacher/notification', teacherViews.notification, name='notification'),
     path('teacher/teacherNoMarkAsDone/<str:status>', teacherViews.teacherNoMarkAsDone, name='teacherNoMarkAsDone'),
-
+    #Result
     path('teacher/add/result', teacherViews.teacherAddResult, name='teacherAddResult'),
+    path('teacher/save/result', teacherViews.teacherSaveResult, name='teacherSaveResult'),
 
 
 
