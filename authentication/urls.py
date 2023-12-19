@@ -41,6 +41,11 @@ urlpatterns = [
     path('teacher/home', teacherViews.teacherHome, name='teacherHome'),
     path('teacher/send_notification', teacherViews.TeacherSendNotification, name='TeacherSendNotification'),
     path('teacher/save_teacher_notification', teacherViews.saveTeacherNotification, name='saveTeacherNotification'),
+    path('teacher/notification', teacherViews.notification, name='notification'),
+    path('teacher/teacherNoMarkAsDone/<str:status>', teacherViews.teacherNoMarkAsDone, name='teacherNoMarkAsDone'),
+
+    path('teacher/add/result', teacherViews.teacherAddResult, name='teacherAddResult'),
+
 
 
     #Student Panel

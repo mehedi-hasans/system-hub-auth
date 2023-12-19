@@ -26,7 +26,7 @@
                    <li><a href="{% url "teacherList" %}">Teacher View</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addDepartment || departmentList' %}">
+             <li class="submenu {% active_link 'addDepartment' %} {% active_link 'departmentList' %}">
                 <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url "addDepartment" %}">Department Add</a></li>
@@ -40,12 +40,15 @@
                    <li><a href="{% url "subjectList" %}">Subject List</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addSubject || TeacherSendNotification' %}">
+             <li class="submenu {% active_link 'TeacherSendNotification' %}">
                <a href="#"><i class="fas fa-book-reader"></i> <span> Notification</span> <span class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="{% url 'addSubject' %}">Send Student Notification</a></li>
+                  <li><a href="#">Send Student Notification</a></li>
                   <li><a href="{% url "TeacherSendNotification" %}">Send Teacher Notification</a></li>
                </ul>
+            </li>
+            <li class="{% active_link '' %}">
+               <a href="{% url "index" %}"><i class="fa fa-walking"></i> <span> Teacher Leave</span></a>
             </li>
              <li class="menu-title">
                 <span>Management</span>
@@ -162,20 +165,23 @@
             <li class="{% active_link 'index' %}">
               <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
            </li>
-            <li class="{% active_link 'index' %}">
+            <li class="{% active_link '' %}">
               <a href="{% url "index" %}"><i class="fas fa-calendar-alt"></i> <span> Take Attendance</span></a>
            </li>
-            <li class="{% active_link 'index' %}">
+            <li class="{% active_link '' %}">
               <a href="{% url "index" %}"><i class="fas fa-calendar"></i> <span> View/Update Attendance</span></a>
            </li>
-            <li class="{% active_link 'index' %}">
-              <a href="{% url "index" %}"><i class="fas fa-poll-h"></i> <span> Add Result</span></a>
+            <li class="{% active_link '' %}">
+              <a href="{% url "teacherAddResult" %}"><i class="fas fa-poll-h"></i> <span> Add Result</span></a>
            </li>
-            <li class="{% active_link 'index' %}">
+            <li class="{% active_link '' %}">
               <a href="{% url "index" %}"><i class="fas fa-envelope-open"></i> <span> Apply For Leave</span></a>
            </li>
-            <li class="{% active_link 'index' %}">
+            <li class="{% active_link '' %}">
               <a href="{% url "index" %}"><i class="fas fa-comment"></i> <span> Send Feedback</span></a>
+           </li>
+            <li class="{% active_link 'notification' %}">
+              <a href="{% url "notification" %}"><i class="fas fa-bell"></i> <span> Notification</span></a>
            </li>
            <li>
             <a href="{% url 'logOut'%}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -183,7 +189,34 @@
          </ul>
 
           {% else %}
-            <h1>student</h1>
+          <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+            <li class="{% active_link 'index' %}">
+              <a href="{% url "index" %}"><i class="fas fa-table"></i><span>Dashboard</span></a>
+           </li>
+            <li class="{% active_link '' %}">
+              <a href="{% url "index" %}"><i class="fas fa-calendar"></i><span>View
+                Attendance</span></a>
+           </li>
+            <li class="{% active_link '' %}">
+              <a href="{% url "index" %}"><i class="fas fa-poll"></i><span>View
+                Result</span></a>
+           </li>
+            <li class="{% active_link '' %}">
+              <a href="{% url "index" %}"><i class="fas fa-pray"></i> <span>Apply For Leave</span></a>
+           </li>
+            <li class="{% active_link '' %}">
+              <a href=""><i class="fas fa-comment"></i><span>Send Feedback</span></a>
+           </li>
+            <li class="">
+              <a href=""><i class="fas fa-bell"></i><span>Notifications</span></a>
+           </li>
+           <li>
+            <a href="{% url 'logOut'%}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+         </li>
+         </ul>
           {% endif %}
        </div>
     </div>

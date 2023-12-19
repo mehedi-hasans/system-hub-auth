@@ -14,6 +14,15 @@
       <!--  datatable -->
       <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
       <link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
+      <style>
+         .submenu ul {
+             display: none;
+         }
+     
+         .submenu.active ul {
+             display: block;
+         }
+     </style>
 
    </head>
    <body>
@@ -47,6 +56,19 @@
     $(document).ready(function () {
         $('#table_id').dataTable();
     });
+
+
+    <script>
+      $(document).ready(function () {
+          // Open submenu when a link inside it is active
+          $('.submenu a.active').closest('.submenu').addClass('active');
+  
+          // Keep submenu open when a link inside it is active
+          $('.submenu a').click(function () {
+              $(this).closest('.submenu').toggleClass('active');
+          });
+      });
+  </script>
 </script>
 
    </body>
