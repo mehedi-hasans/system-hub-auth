@@ -4,9 +4,9 @@ from authentication import teacherViews
 from . import views
 
 urlpatterns = [
-    path('', views.loginPage, name='loginPage'),
+    path('login', views.loginPage, name='loginPage'),
     path('signup', views.signupPage, name='signupPage'),
-    path('index', views.index, name='index'),
+    path('', views.index, name='index'),
     path('logOut', views.logOut, name='logOut'),
     #Profile Update
     path('profile', views.profile, name='profile'),

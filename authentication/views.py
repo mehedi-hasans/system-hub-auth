@@ -24,9 +24,9 @@ def loginPage(request):
             if user_type == '1':
                 return redirect('index')
             elif user_type == '2':
-                return redirect('teacherHome')
+                return redirect('index')
             else:
-                return redirect('student')
+                return redirect('index')
         elif CustomUser.objects.filter(username=request.POST.get('username')).exists():
             messages.error(request, error_messages['password_error'])
             return redirect('loginPage')

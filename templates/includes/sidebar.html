@@ -8,47 +8,47 @@
                 <span>Main Menu</span>
              </li>
              
-             <li class="{% active_link 'index' %}">
+             <li class="{% active_link 'index' 'active' %}">
                <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
             </li>
 
-             <li class="submenu {% active_link 'addStudent || studentList' %}">
+             <li class="submenu {% active_link 'addStudent' 'active' %} {% active_link 'studentList' 'active' %}">
                 <a href=""><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addStudent' %}">Student Add</a></li>
                    <li><a href="{% url 'studentList' %}">Student View</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addTeacher || teacherList' %}">
+             <li class="submenu {% active_link 'addTeacher' 'active' %} {% active_link 'teacherList' 'active' %}">
                 <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addTeacher' %}">Teacher Add</a></li>
                    <li><a href="{% url "teacherList" %}">Teacher View</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addDepartment' %} {% active_link 'departmentList' %}">
+             <li class="submenu {% active_link 'addDepartment' 'active' %} {% active_link 'departmentList' 'active' %}">
                 <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url "addDepartment" %}">Department Add</a></li>
                    <li><a href="{% url "departmentList" %}">Department View</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'addSubject || subjectList' %}">
+             <li class="submenu {% active_link 'addSubject' 'active' %} {% active_link 'subjectList' 'active' %}">
                 <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'addSubject' %}">Subject Add</a></li>
                    <li><a href="{% url "subjectList" %}">Subject List</a></li>
                 </ul>
              </li>
-             <li class="submenu {% active_link 'TeacherSendNotification' %}">
+             <li class="submenu {% active_link 'TeacherSendNotification'  %}">
                <a href="#"><i class="fas fa-book-reader"></i> <span> Notification</span> <span class="menu-arrow"></span></a>
                <ul>
                   <li><a href="#">Send Student Notification</a></li>
                   <li><a href="{% url "TeacherSendNotification" %}">Send Teacher Notification</a></li>
                </ul>
             </li>
-            <li class="{% active_link '' %}">
-               <a href="{% url "index" %}"><i class="fa fa-walking"></i> <span> Teacher Leave</span></a>
+            <li class="">
+               <a href=""><i class="fa fa-walking"></i> <span> Teacher Leave</span></a>
             </li>
              <li class="menu-title">
                 <span>Management</span>
@@ -162,25 +162,25 @@
                <span>Main Menu</span>
             </li>
             
-            <li class="{% active_link 'index' %}">
+            <li class="{% active_link 'index' 'active' %}">
               <a href="{% url "index" %}"><i class="fas fa-table"></i> <span> Dashboard</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="">
               <a href="{% url "index" %}"><i class="fas fa-calendar-alt"></i> <span> Take Attendance</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="">
               <a href="{% url "index" %}"><i class="fas fa-calendar"></i> <span> View/Update Attendance</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="{% active_link 'teacherAddResult' %}">
               <a href="{% url "teacherAddResult" %}"><i class="fas fa-poll-h"></i> <span> Add Result</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="">
               <a href="{% url "index" %}"><i class="fas fa-envelope-open"></i> <span> Apply For Leave</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="">
               <a href="{% url "index" %}"><i class="fas fa-comment"></i> <span> Send Feedback</span></a>
            </li>
-            <li class="{% active_link 'notification' %}">
+            <li class="{% active_link 'notification' 'active' %}">
               <a href="{% url "notification" %}"><i class="fas fa-bell"></i> <span> Notification</span></a>
            </li>
            <li>
@@ -196,18 +196,18 @@
             <li class="{% active_link 'index' %}">
               <a href="{% url "index" %}"><i class="fas fa-table"></i><span>Dashboard</span></a>
            </li>
-            <li class="{% active_link '' %}">
-              <a href="{% url "index" %}"><i class="fas fa-calendar"></i><span>View
+            <li class="">
+              <a href=""><i class="fas fa-calendar"></i><span>View
                 Attendance</span></a>
            </li>
-            <li class="{% active_link '' %}">
-              <a href="{% url "index" %}"><i class="fas fa-poll"></i><span>View
+            <li class="">
+              <a href=""><i class="fas fa-poll"></i><span>View
                 Result</span></a>
            </li>
-            <li class="{% active_link '' %}">
-              <a href="{% url "index" %}"><i class="fas fa-pray"></i> <span>Apply For Leave</span></a>
+            <li class="">
+              <a href=""><i class="fas fa-pray"></i> <span>Apply For Leave</span></a>
            </li>
-            <li class="{% active_link '' %}">
+            <li class="">
               <a href=""><i class="fas fa-comment"></i><span>Send Feedback</span></a>
            </li>
             <li class="">
