@@ -44,8 +44,6 @@ class Student(models.Model):
     def __str__(self):
         return self.admin.first_name + " " + self.admin.last_name
     
-
-
 class Teacher(models.Model):
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address=models.TextField()
@@ -73,6 +71,7 @@ class Subject(models.Model):
     
 
 #Teacher Panel
+    
     
 class TeacherNotification(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
