@@ -210,6 +210,7 @@ def addStudent(request):
             student.save()
 
             messages.success(request, error_messages['success'])
+            
             return redirect("addStudent")
 
     # Fetch the course and session year data to display in the form
