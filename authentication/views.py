@@ -106,7 +106,7 @@ def profile(request):
 def profileUpdate(request):
 
     error_messages = {
-        'success': 'Profile Update Successfully',
+        'success': 'Profile Update Successfully!',
         'error': 'Profile Not Updated',
         'password_error': 'Current password is incorrect',
     }
